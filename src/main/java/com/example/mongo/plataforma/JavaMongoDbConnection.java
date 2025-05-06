@@ -1,4 +1,4 @@
-package com.example.mongo;
+package com.example.mongo.plataforma;
 
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;

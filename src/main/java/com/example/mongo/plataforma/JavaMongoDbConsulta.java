@@ -1,4 +1,4 @@
-package com.example.mongo;
+package com.example.mongo.plataforma;
 
 import org.bson.Document;
 

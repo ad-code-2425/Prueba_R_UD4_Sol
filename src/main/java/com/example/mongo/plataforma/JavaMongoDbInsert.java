@@ -1,4 +1,4 @@
-package com.example.mongo;
+package com.example.mongo.plataforma;
 
 import java.util.Arrays;
 
@@ -13,7 +13,7 @@ public class JavaMongoDbInsert {
   public static void main(String args[]) {
     MongoClient clienteMongo = MongoClients.create();
     // Si no existe, se crea la BD y la colección
-    MongoDatabase baseDatos = clienteMongo.getDatabase("centro");
+    MongoDatabase baseDatos = clienteMongo.getDatabase("centro2");
     MongoCollection<Document> coleccion = baseDatos.getCollection("personas");
     Document persona = new Document("nombre", "Sergio")
         .append("tipo", "Profesor")
