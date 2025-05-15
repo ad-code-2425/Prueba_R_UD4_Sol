@@ -33,6 +33,7 @@ public class GestorAlumnado {
             // MongoDatabase db = client.getDatabase(DATABASE_NAME);
             MongoCollection<Document> coleccion = db.getCollection(COLLECTION_NAME);
 
+            pausar(1000);
             while (true) {
                 mostrarMenu(db, coleccion);
             }
@@ -40,13 +41,22 @@ public class GestorAlumnado {
         }
     }
 
+    private static void pausar(int milliseconds) {
+         try {
+                // Pausar milliseconds/1000 segundos 
+                Thread.sleep(milliseconds);
+            } catch (InterruptedException e) {
+                // Manejo si el hilo es interrumpido mientras duerme
+                System.out.println("La pausa fue interrumpida.");
+            }
+    }
     private static void mostrarMenu(MongoDatabase db, MongoCollection<Document> coleccion) {
         System.out.println("\n----- GESTOR DE ALUMNADO -----");
         System.out.println("1. Listar todos los alumnos");
         System.out.println("2. Insertar alumno (Lucía)");
         System.out.println("3. Buscar alumno por ID");
         System.out.println("4. Eliminar alumno por ID");
-         System.out.println("5. Eliminar colección por nombre");
+        System.out.println("5. Eliminar colección por nombre");
         System.out.println("6. Salir");
         System.out.print("Selecciona una opción: ");
 
@@ -62,19 +72,21 @@ public class GestorAlumnado {
             case "3":
                 leerAlumnoPorId(coleccion);
                 break;
-                
+
             case "4":
                 eliminarAlumnoPorId(coleccion);
                 break;
 
             case "5":
-                
-                String nombreColeccion = pedirCadena("Introduce el nombre de la colección a eliminar: ");
-               
+
+                String nombreColeccion = pedirCadenaPorTeclado("Introduce el nombre de la colección a eliminar: ");
+
                 eliminarColeccion(db, nombreColeccion);
                 break;
             case "6":
-                System.out.println("¡Hasta luego!");
+                System.out.println("----------------------");
+                System.out.println("----------------------");
+                System.out.println("Cerrando la aplicación...");
                 System.exit(0);
 
             default:
@@ -82,23 +94,15 @@ public class GestorAlumnado {
         }
     }
 
-    // Método reutilizable para pedir cadenas por teclado
-    private static String pedirCadena(String mensaje) {
-        System.out.print(mensaje);
-        return scanner.nextLine().trim();
-    }
-
-    private static void eliminarColeccion(MongoDatabase db, String nombreColeccion) {
-        db.getCollection(nombreColeccion).drop();
-    }
+  
 
     private static void listarAlumnos(MongoCollection<Document> coleccion) {
         System.out.println("\n--- LISTA DE ALUMNOS ---");
         FindIterable<Document> alumnos = coleccion.find();
         int contador = 1;
         for (Document doc : alumnos) {
-
-            System.out.println(contador + ": " + doc);
+            System.out.println("Alumno: " + contador++);
+            System.out.println(doc);
         }
     }
 
@@ -134,6 +138,7 @@ public class GestorAlumnado {
 
         try {
             ObjectId id = new ObjectId(idStr);
+
             buscarAlumnoPorId(id, coleccion);
         } catch (IllegalArgumentException e) {
             System.out.println("ID no válido.");
@@ -143,7 +148,7 @@ public class GestorAlumnado {
     private static void buscarAlumnoPorId(ObjectId id, MongoCollection<Document> coleccion) {
         Document alumno = coleccion.find(new Document("_id", id)).first();
         if (alumno != null) {
-            System.out.println("Alumno encontrado:\n" + alumno.toJson());
+            System.out.println("Alumno encontrado:\n" + alumno);
         } else {
             System.out.println("No se encontró ningún alumno con ese ID.");
         }
@@ -164,5 +169,15 @@ public class GestorAlumnado {
         } catch (IllegalArgumentException e) {
             System.out.println("ID no válido.");
         }
+    }
+
+      // Método reutilizable para pedir cadenas por teclado
+    private static String pedirCadenaPorTeclado(String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine().trim();
+    }
+
+    private static void eliminarColeccion(MongoDatabase db, String nombreColeccion) {
+        db.getCollection(nombreColeccion).drop();
     }
 }
