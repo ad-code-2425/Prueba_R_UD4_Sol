@@ -1,0 +1,37 @@
+[
+  {
+    "fecha": "2025-06-15",
+    "hora": "13:30",
+    "numeroComensales": 4,
+    "telefono": "612345678",
+    "responsableReserva": "Carlos López"
+  },
+  {
+    "fecha": "2025-06-16",
+    "hora": "20:00",
+    "numeroComensales": 2,
+    "telefono": "698765432",
+    "responsableReserva": "Ana García"
+  },
+  {
+    "fecha": "2025-06-17",
+    "hora": "14:00",
+    "numeroComensales": 6,
+    "telefono": "634567890",
+    "responsableReserva": "Javier Torres"
+  },
+  {
+    "fecha": "2025-06-18",
+    "hora": "21:00",
+    "numeroComensales": 3,
+    "telefono": "622334455",
+    "responsableReserva": "Laura Fernández"
+  },
+  {
+    "fecha": "2025-06-19",
+    "hora": "12:00",
+    "numeroComensales": 5,
+    "telefono": "600112233",
+    "responsableReserva": "Miguel Ruiz"
+  }
+]
